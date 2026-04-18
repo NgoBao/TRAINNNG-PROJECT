@@ -1,10 +1,16 @@
-from train import main
+from read_MNIST import load_data
+from train import main as run_training
 
-# Example (replace with your provided dataloader)
-# from dataloader import train_loader, test_loader
 
 if __name__ == "__main__":
-    print("Waiting for instructor-provided dataloader.")
-    print("When you get it, update this file to:")
-    print("from dataloader import train_loader, test_loader")
-    print("main(train_loader, test_loader)")
+    print("=" * 60)
+    print("Loading MNIST dataset...")
+    print("=" * 60)
+
+    train_loader, test_loader = load_data()
+
+    print("=" * 60)
+    print("Starting project training and testing")
+    print("=" * 60)
+
+    run_training(train_loader, test_loader)

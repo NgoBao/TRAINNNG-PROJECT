@@ -119,6 +119,10 @@ class SimpleCNN:
                     region = self.X[n, i:i + k, j:j + k]
                     dKernel += dConv[i, j] * region
 
+        # Average gradients over the batch
+        dKernel /= batch_size
+        dConvBias /= batch_size
+
         # Parameter update
         self.W -= self.learning_rate * dW
         self.b -= self.learning_rate * db

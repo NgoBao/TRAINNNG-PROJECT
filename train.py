@@ -23,6 +23,7 @@ def train_mlp(model, train_loader, epochs=30):
         for images, labels in train_loader:
             images = flatten_images(images)
             images = normalize_images(images)
+
             labels_np = to_numpy(labels).astype(int).reshape(-1)
             y_true = one_hot_encode(labels_np, num_classes=10)
 
@@ -53,6 +54,7 @@ def test_mlp(model, test_loader):
     for images, labels in test_loader:
         images = flatten_images(images)
         images = normalize_images(images)
+
         labels_np = to_numpy(labels).astype(int).reshape(-1)
 
         preds = model.predict(images)
@@ -76,6 +78,7 @@ def train_cnn(model, train_loader, epochs=5):
         for images, labels in train_loader:
             images = prepare_cnn_images(images)
             images = normalize_images(images)
+
             labels_np = to_numpy(labels).astype(int).reshape(-1)
             y_true = one_hot_encode(labels_np, num_classes=10)
 
@@ -106,6 +109,7 @@ def test_cnn(model, test_loader):
     for images, labels in test_loader:
         images = prepare_cnn_images(images)
         images = normalize_images(images)
+
         labels_np = to_numpy(labels).astype(int).reshape(-1)
 
         preds = model.predict(images)
@@ -120,10 +124,9 @@ def test_cnn(model, test_loader):
 def main(train_loader, test_loader):
     """
     Main function for training and testing both MLP and CNN.
-    train_loader and test_loader are assumed to be provided externally.
     """
 
-    print("=" * 60)
+    print("\n" + "=" * 60)
     print("Training MLP")
     print("=" * 60)
     mlp_model = MLP(
@@ -146,13 +149,5 @@ def main(train_loader, test_loader):
         learning_rate=0.01,
         seed=42
     )
-    train_cnn(cnn_model, train_loader, epochs=30)
+    train_cnn(cnn_model, train_loader, epochs=5)
     test_cnn(cnn_model, test_loader)
-
-
-if __name__ == "__main__":
-    print("This file expects train_loader and test_loader to be provided by your project starter code.")
-    print("Example usage:")
-    print("from your_dataloader_file import train_loader, test_loader")
-    print("from train import main")
-    print("main(train_loader, test_loader)")

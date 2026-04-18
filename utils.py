@@ -96,10 +96,8 @@ def flatten_images(images):
     images = to_numpy(images).astype(np.float64)
 
     if images.ndim == 4:
-        # [B, C, H, W]
         images = images.reshape(images.shape[0], -1)
     elif images.ndim == 3:
-        # [B, H, W]
         images = images.reshape(images.shape[0], -1)
     else:
         raise ValueError(f"Unsupported image shape for flatten_images: {images.shape}")
@@ -119,7 +117,6 @@ def prepare_cnn_images(images):
     images = to_numpy(images).astype(np.float64)
 
     if images.ndim == 4:
-        # [B, 1, H, W] -> [B, H, W]
         if images.shape[1] != 1:
             raise ValueError("This CNN implementation expects grayscale images with 1 channel.")
         images = images[:, 0, :, :]
